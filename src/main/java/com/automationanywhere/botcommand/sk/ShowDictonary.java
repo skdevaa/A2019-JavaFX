@@ -133,7 +133,7 @@ public class ShowDictonary  {
 
          TableView tableView = new TableView<>(generateDataInMap(dict));
          tableView.setColumnResizePolicy ( TableView.CONSTRAINED_RESIZE_POLICY);
-         tableView.setEditable(true);
+         tableView.setEditable(false);
          tableView.getSelectionModel().setCellSelectionEnabled(true);
          tableView.prefWidth(50000);
          tableView.prefHeight(30000);

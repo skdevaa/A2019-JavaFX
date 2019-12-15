@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "1.0.0-20191215-115622",
-    "codeVersion": "1.0.0-20191215-115622",
+    "packageVersion": "1.0.0-20191215-214641",
+    "codeVersion": "1.0.0-20191215-214641",
     "commands": [
         {
             "name": "DynamicForm",
@@ -70,6 +70,104 @@
                 {
                     "name": "dict",
                     "label": "Dictonary",
+                    "type": "VARIABLE",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "label",
+                    "label": "Button Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ShowRecord",
+            "label": "Show Record",
+            "description": "Show Record variable",
+            "nodeLabel": "Show Record",
+            "mainClass": "com.automationanywhere.botcommand.sk.ShowRecordCommand",
+            "attributes": [
+                {
+                    "name": "record",
+                    "label": "Record",
+                    "type": "VARIABLE",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "label",
+                    "label": "Button Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ShowTable",
+            "label": "Show Table",
+            "description": "Show Table variable",
+            "nodeLabel": "Show Table",
+            "mainClass": "com.automationanywhere.botcommand.sk.ShowTableCommand",
+            "attributes": [
+                {
+                    "name": "table",
+                    "label": "Table",
                     "type": "VARIABLE",
                     "rules": [
                         {

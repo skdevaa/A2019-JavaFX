@@ -1,0 +1,10 @@
+{
+  "name": "JavaFX",
+  "label": "JavaFX",
+  "description": "Provides actions for JavaFX based UIs.",
+  "group": "",
+  "artifactName": "",
+  "packageVersion": "",
+  "codeVersion": "",
+  "commands": []
+}

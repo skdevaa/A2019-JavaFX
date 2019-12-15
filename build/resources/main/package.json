@@ -4,13 +4,13 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "1.0.0-20191215-113326",
-    "codeVersion": "1.0.0-20191215-113326",
+    "packageVersion": "1.0.0-20191215-115622",
+    "codeVersion": "1.0.0-20191215-115622",
     "commands": [
         {
             "name": "DynamicForm",
             "label": "Dynamic Form",
-            "description": "Builds Form in Dictionay Input",
+            "description": "Builds Form based on Dictionay Input",
             "nodeLabel": "Dynamic Form",
             "mainClass": "com.automationanywhere.botcommand.sk.DynamicFormCommand",
             "returnType": "DICTIONARY",

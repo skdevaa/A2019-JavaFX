@@ -13,10 +13,8 @@ package com.automationanywhere.botcommand.sk;
 
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.AttributeType.VARIABLE;
-import static com.automationanywhere.commandsdk.model.AttributeType.NUMBER;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import static com.automationanywhere.commandsdk.model.DataType.DICTIONARY;
-import static com.automationanywhere.commandsdk.model.DataType.NUMBER;
 
 import java.awt.Dimension;
 import java.util.HashMap;
@@ -59,7 +57,7 @@ import javafx.scene.paint.Color;
  */
 
 @BotCommand
-@CommandPkg(label="Dynamic Form", name="DynamicForm", description="Builds Form in Dictionay Input", icon="",
+@CommandPkg(label="Dynamic Form", name="DynamicForm", description="Builds Form based on Dictionay Input", icon="",
 node_label="Dynamic Form", return_type =  DICTIONARY, return_sub_type= STRING , return_required = true)
 public class DynamicForm  {
 	

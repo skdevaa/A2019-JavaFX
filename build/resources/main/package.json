@@ -4,9 +4,56 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "1.0.0-20191215-214641",
-    "codeVersion": "1.0.0-20191215-214641",
+    "packageVersion": "1.0.0-20191216-181906",
+    "codeVersion": "1.0.0-20191216-181906",
     "commands": [
+        {
+            "name": "Alert",
+            "label": "Alert",
+            "description": "Shows Alert message",
+            "nodeLabel": "Alert",
+            "mainClass": "com.automationanywhere.botcommand.sk.AlertCommand",
+            "attributes": [
+                {
+                    "name": "message",
+                    "label": "Message",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "type",
+                    "label": "Alert Type",
+                    "type": "SELECT",
+                    "defaultValue": {
+                        "string": "INFORMATION",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "Error",
+                            "value": "ERROR"
+                        },
+                        {
+                            "label": "Information",
+                            "value": "INFORMATION"
+                        },
+                        {
+                            "label": "Warning",
+                            "value": "WARNING"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "name": "DynamicForm",
             "label": "Dynamic Form",
@@ -22,6 +69,59 @@
                     "name": "dict",
                     "label": "Dictonary",
                     "type": "VARIABLE",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "label",
+                    "label": "Button Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "RadioButtons",
+            "label": "Radio Buttons",
+            "description": "Dynamic List of Radio Buttons",
+            "nodeLabel": "Radio Buttons",
+            "mainClass": "com.automationanywhere.botcommand.sk.RadioButtonsCommand",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "Selected",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "options",
+                    "label": "Options",
+                    "type": "LIST",
                     "rules": [
                         {
                             "name": "NOT_EMPTY"
@@ -208,14 +308,77 @@
             ]
         },
         {
+            "name": "ThreeButtons",
+            "label": "Three Buttons",
+            "description": "ThreeButtons",
+            "nodeLabel": "Three Buttons",
+            "mainClass": "com.automationanywhere.botcommand.sk.ThreeButtonsCommand",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "Pressed",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "title",
+                    "label": "Title",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "label",
+                    "label": "Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "button1",
+                    "label": "Button1",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "button2",
+                    "label": "Button2",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "button3",
+                    "label": "Button3",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "TwoButtons",
             "label": "Two Buttons",
             "description": "Two Buttons",
-            "nodeLabel": "Two ButtonsI",
+            "nodeLabel": "Two Buttons",
             "mainClass": "com.automationanywhere.botcommand.sk.TwoButtonsCommand",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
-            "returnLabel": "Show Two Buttons",
+            "returnLabel": "Pressed",
             "returnRequired": true,
             "attributes": [
                 {

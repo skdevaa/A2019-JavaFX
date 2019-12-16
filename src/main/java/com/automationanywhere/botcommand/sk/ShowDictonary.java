@@ -75,8 +75,7 @@ public class ShowDictonary  {
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
-		  String[] args = null;
-		  
+
 
 		  initAndShowGUI(dict,label);
 		   this.sem.acquire();
@@ -120,8 +119,6 @@ public class ShowDictonary  {
 
     	 Button but1= new Button(buttonlabel);
     	 but1.setStyle("-fx-font-size: 12pt;");
-
-    	 
     	 but1.setOnAction((e)->{
     		 this.frame.setVisible(false);
     	     quit();
@@ -182,7 +179,7 @@ public class ShowDictonary  {
   	 }
 
 
-	public  void quit() {
+	private void quit() {
 		 this.sem.release();
 	}
 	

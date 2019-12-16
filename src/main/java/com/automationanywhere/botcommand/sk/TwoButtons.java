@@ -43,8 +43,8 @@ import javafx.scene.paint.Color;
 
 @BotCommand
 @CommandPkg(label="Two Buttons", name="TwoButtons", description="Two Buttons", icon="",
-node_label="Two ButtonsI",
-return_type=STRING, return_label="Show Two Buttons", return_required=true)
+node_label="Two Buttons",
+return_type=STRING, return_label="Pressed", return_required=true)
 public class TwoButtons  {
 	
 	private String pressed = null;
@@ -61,8 +61,7 @@ public class TwoButtons  {
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
-		  String[] args = null;
-		  
+
 
 		  initAndShowGUI(title,label,button1,button2);
 		   this.sem.acquire();
@@ -150,7 +149,7 @@ public class TwoButtons  {
   	 }
 
 
-	public  void quit() {
+	private  void quit() {
 		 this.sem.release();
 	}
 }

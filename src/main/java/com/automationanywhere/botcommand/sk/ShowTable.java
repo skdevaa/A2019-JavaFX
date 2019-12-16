@@ -85,8 +85,7 @@ public class ShowTable  {
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
-		  String[] args = null;
-		  
+
 
 		  initAndShowGUI(table,label);
 		   this.sem.acquire();
@@ -130,8 +129,6 @@ public class ShowTable  {
 
     	 Button but1= new Button(buttonlabel);
     	 but1.setStyle("-fx-font-size: 12pt;");
-
-    	 
     	 but1.setOnAction((e)->{
     		 this.frame.setVisible(false);
     	     quit();
@@ -204,7 +201,7 @@ public class ShowTable  {
   	 }
 
 
-	public  void quit() {
+	private  void quit() {
 		 this.sem.release();
 	}
 	

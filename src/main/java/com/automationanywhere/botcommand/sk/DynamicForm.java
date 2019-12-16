@@ -85,8 +85,6 @@ public class DynamicForm  {
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
-		  String[] args = null;
-
 
 		  initAndShowGUI();
 		  this.sem.acquire();
@@ -130,10 +128,7 @@ public class DynamicForm  {
     
 
     	 Button but1= new Button(this.buttonlabel);
-    	 HashMap<String,Value> dict = this.map;
     	 but1.setStyle("-fx-font-size: 12pt;");
-
-    	 
     	 but1.setOnAction((e)->{
     		 this.frame.setVisible(false);
     	     quit();
@@ -145,6 +140,8 @@ public class DynamicForm  {
     	 this.grid.setHgap(10);
          this.grid.setVgap(12);
     	 grid.setAlignment(Pos.CENTER);
+    	 
+    	 HashMap<String,Value> dict = this.map;
     	 int row = 0;
          for (HashMap.Entry<String, Value> entry : dict.entrySet()) {
         	 String label = entry.getKey();
@@ -169,7 +166,7 @@ public class DynamicForm  {
   	 }
 
 
-	public  void quit() {
+	private  void quit() {
 	    ObservableList<Node> childrens = this.grid.getChildren();
 	    int row = 0;
 	    int column = 1;

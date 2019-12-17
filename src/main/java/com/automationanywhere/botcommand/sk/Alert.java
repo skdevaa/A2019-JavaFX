@@ -13,7 +13,9 @@ package com.automationanywhere.botcommand.sk;
 
 import static com.automationanywhere.commandsdk.model.AttributeType.SELECT;
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
+import static com.automationanywhere.commandsdk.model.AttributeType.NUMBER;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
+import static com.automationanywhere.commandsdk.model.DataType.NUMBER;
 
 import java.awt.Insets;
 import java.util.concurrent.Semaphore;
@@ -25,6 +27,9 @@ import com.automationanywhere.commandsdk.annotations.Execute;
 import com.automationanywhere.commandsdk.annotations.Idx;
 import com.automationanywhere.commandsdk.annotations.Pkg;
 import com.automationanywhere.commandsdk.annotations.rules.NotEmpty;
+import com.automationanywhere.commandsdk.model.AttributeType;
+import com.automationanywhere.commandsdk.model.DataType;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Pos;
@@ -66,7 +71,9 @@ public class Alert  {
 								@Idx.Option(index = "2.1", pkg = @Pkg(label = "Error", value = "ERROR")),
 								@Idx.Option(index = "2.2", pkg = @Pkg(label = "Information", value = "INFORMATION")),
 								@Idx.Option(index = "2.3", pkg = @Pkg(label = "Warning", value = "WARNING")),
-						}) @Pkg(label = "Alert Type", default_value = "INFORMATION", default_value_type = STRING) @NotEmpty String type) throws Exception
+						}) @Pkg(label = "Alert Type", default_value = "INFORMATION", default_value_type = STRING) @NotEmpty String type,
+					   @Idx(index = "3", type = AttributeType.NUMBER) @Pkg(label = "Width", default_value_type = DataType.NUMBER) @NotEmpty Double width) throws Exception
+	
 	{
 		
 		
@@ -74,20 +81,20 @@ public class Alert  {
 		      this.sem = new Semaphore(1);		    
 		  }
 
-		   initAndShowGUI(message,type);
+		   initAndShowGUI(message,type,width);
 		   this.sem.acquire();
 		   this.sem.release();
     
 	}
 
 
-    private  void initAndShowGUI(String message,String type) throws Exception  {
+    private  void initAndShowGUI(String message,String type,Double width) throws Exception  {
         // This method is invoked on the JavaFX thread
     	 this.sem.acquire();
 	        Platform.runLater(new Runnable() {
 	            @Override
 	            public void run() {
-	                initFX(message,type);
+	                initFX(message,type,width);
 	            }
 	       });
 	        
@@ -95,7 +102,7 @@ public class Alert  {
 	        
     }
 
-  private  void initFX(String message, String type) {
+  private  void initFX(String message, String type, Double width) {
 	  
     
       javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.valueOf(type));
@@ -129,6 +136,7 @@ public class Alert  {
       dialogStage.initModality(Modality.APPLICATION_MODAL);
       dialogStage.setAlwaysOnTop(true);
       dialogStage.setResizable(false);
+      dialogStage.setWidth(width);
       dialogStage.showAndWait();
    }
 

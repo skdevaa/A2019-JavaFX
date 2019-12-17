@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "1.0.0-20191216-181906",
-    "codeVersion": "1.0.0-20191216-181906",
+    "packageVersion": "1.0.0-20191217-191024",
+    "codeVersion": "1.0.0-20191217-191024",
     "commands": [
         {
             "name": "Alert",
@@ -51,6 +51,44 @@
                             "value": "WARNING"
                         }
                     ]
+                },
+                {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "DirChooser",
+            "label": "Directory Chooser",
+            "description": "Choose File",
+            "nodeLabel": "DirChooser",
+            "mainClass": "com.automationanywhere.botcommand.sk.DirChooserCommand",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "Directory",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "message",
+                    "label": "Message",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "dir",
+                    "label": "Initial Directory",
+                    "type": "TEXT"
                 }
             ]
         },
@@ -104,6 +142,34 @@
                             "name": "NOT_EMPTY"
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "name": "FileChooser",
+            "label": "File Chooser",
+            "description": "Choose File",
+            "nodeLabel": "FileChooser",
+            "mainClass": "com.automationanywhere.botcommand.sk.FileChooserCommand",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "File",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "message",
+                    "label": "Message",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "dir",
+                    "label": "Initial Directory",
+                    "type": "TEXT"
                 }
             ]
         },

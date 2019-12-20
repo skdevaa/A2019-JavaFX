@@ -89,6 +89,7 @@ configure(allprojects){
 		compile group: 'org.openjfx', name: 'javafx-graphics', version: '13', classifier: 'win'
 		compile group: 'org.openjfx', name: 'javafx-controls', version: '13', classifier: 'win'
 		compile group: 'org.openjfx', name: 'javafx-swing', version: '13', classifier: 'win'
+		compile group: 'org.openjfx', name: 'javafx-fxml', version: '13', classifier: 'win'
 		implementation name: 'i18n-api', version: '1+'
 		apt name: 'command-processor', version: '1+'
 		compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$loggerVersion"

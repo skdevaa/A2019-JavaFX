@@ -90,7 +90,7 @@ public class DirChooser  {
         // This method is invoked on the JavaFX thread
         // This method is invoked on the JavaFX thread
     	 this.sem.acquire();
-         this.frame = new JFrame("Diretory Chooser");  
+         this.frame = new JFrame("Directory Chooser");  
          this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
              @Override
              public void windowClosing(java.awt.event.WindowEvent windowEvent) {

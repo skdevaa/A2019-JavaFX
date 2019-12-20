@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "1.0.0-20191217-191024",
-    "codeVersion": "1.0.0-20191217-191024",
+    "packageVersion": "1.0.0-20191220-153905",
+    "codeVersion": "1.0.0-20191220-153905",
     "commands": [
         {
             "name": "Alert",
@@ -56,6 +56,29 @@
                     "name": "width",
                     "label": "Width",
                     "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "DatePicker",
+            "label": "Date Picker",
+            "description": "Choose a Date",
+            "nodeLabel": "DatePicker",
+            "mainClass": "com.automationanywhere.botcommand.sk.DatePickerCommand",
+            "returnType": "DATETIME",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "Date",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "startend",
+                    "label": "Start-End Date",
+                    "type": "CHECKBOX",
                     "rules": [
                         {
                             "name": "NOT_EMPTY"
@@ -170,6 +193,69 @@
                     "name": "dir",
                     "label": "Initial Directory",
                     "type": "TEXT"
+                }
+            ]
+        },
+        {
+            "name": "FXMLForm",
+            "label": "FXML Form",
+            "description": "FXML Form",
+            "nodeLabel": "FXML Form",
+            "mainClass": "com.automationanywhere.botcommand.sk.FXMLFormCommand",
+            "returnType": "DICTIONARY",
+            "returnSubtype": "STRING",
+            "returnLabel": "Result",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "fxml",
+                    "label": "FXML File",
+                    "type": "FILE",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "title",
+                    "label": "Title",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "dict",
+                    "label": "Dictionary",
+                    "type": "DICTIONARY",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
                 }
             ]
         },

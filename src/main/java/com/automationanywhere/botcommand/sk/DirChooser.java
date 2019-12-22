@@ -19,7 +19,6 @@ import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import java.io.File;
 import java.net.URL;
 import java.util.concurrent.Semaphore;
-import javax.swing.JFrame;
 
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.impl.StringValue;
@@ -32,7 +31,7 @@ import com.automationanywhere.commandsdk.annotations.rules.NotEmpty;
 
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -79,7 +78,7 @@ public class DirChooser  {
 		  this.message = message;
 
 	      this.sem.acquire();
-	      window = new FXWindow("Directory Chooser",700,300);
+	      window = new FXWindow("Directory Chooser",800,300);
 	      window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
 	             @Override
 	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {

@@ -80,7 +80,7 @@ public class FileChooser  {
 		  this.message = message;
 	      this.sem.acquire();
 	      
-	      window = new FXWindow("File Chooser",700,300);
+	      window = new FXWindow("File Chooser",800,300);
 	      window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
 	             @Override
 	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {

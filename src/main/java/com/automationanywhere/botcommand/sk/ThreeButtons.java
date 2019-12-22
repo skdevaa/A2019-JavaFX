@@ -67,7 +67,7 @@ public class ThreeButtons  {
 
 		  
 	     this.sem.acquire();
-	     window = new FXWindow(title, 500, 200);
+	     window = new FXWindow(title, 600, 200);
 		        Platform.runLater(new Runnable() {
 		            @Override
 		            public void run() {

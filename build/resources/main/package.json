@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20191222-143520",
-    "codeVersion": "2.0.0-20191222-143520",
+    "packageVersion": "2.0.0-20191222-202012",
+    "codeVersion": "2.0.0-20191222-202012",
     "commands": [
         {
             "name": "Alert",
@@ -236,6 +236,104 @@
                 {
                     "name": "label",
                     "label": "Button Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "NUMBER",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Chart",
+            "label": "Chart",
+            "description": "Show Chart",
+            "nodeLabel": "Chart",
+            "mainClass": "com.automationanywhere.botcommand.sk.ShowChartCommand",
+            "icon": "jfx.svg",
+            "attributes": [
+                {
+                    "name": "record",
+                    "label": "Chart Data",
+                    "type": "VARIABLE",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "charttype",
+                    "label": "ChartType",
+                    "type": "SELECT",
+                    "defaultValue": {
+                        "string": "line",
+                        "type": "STRING"
+                    },
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "Line Chart",
+                            "value": "line"
+                        },
+                        {
+                            "label": "Pie Chart",
+                            "value": "pie"
+                        },
+                        {
+                            "label": "Bar Chart",
+                            "value": "bar"
+                        }
+                    ]
+                },
+                {
+                    "name": "chartlabel",
+                    "label": "Chart Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "xlabel",
+                    "label": "X-Axis Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "ylabel",
+                    "label": "Y-Axist Label",
                     "type": "TEXT",
                     "rules": [
                         {

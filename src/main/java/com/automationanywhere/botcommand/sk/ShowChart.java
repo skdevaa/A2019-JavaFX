@@ -53,6 +53,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
@@ -76,17 +77,18 @@ public class ShowChart  {
 	private FXWindow window;
 	
 	@Execute
-	public void action(@Idx(index = "1", type = AttributeType.VARIABLE) @Pkg(label = "Chart Data", default_value_type = DataType.RECORD) @NotEmpty Record record,
-					   @Idx(index = "2", type = SELECT, options = {
-				  		 @Idx.Option(index = "2.1", pkg = @Pkg(label = "Line Chart", value = "line")),
-						 @Idx.Option(index = "2.2", pkg = @Pkg(label = "Pie Chart", value = "pie")),
-						 @Idx.Option(index = "2.3", pkg = @Pkg(label = "Bar Chart", value = "bar"))
+	public void action(@Idx(index = "1", type = AttributeType.VARIABLE) @Pkg(label = "Chart Data1", default_value_type = DataType.RECORD) @NotEmpty Record record1,
+			           @Idx(index = "2" ,type = AttributeType.VARIABLE) @Pkg(label = "Chart Data2", default_value_type = DataType.RECORD)  Record record2,
+					   @Idx(index = "3", type = SELECT, options = {
+				  		 @Idx.Option(index = "3.1", pkg = @Pkg(label = "Line Chart", value = "line")),
+						 @Idx.Option(index = "3.2", pkg = @Pkg(label = "Pie Chart", value = "pie")),
+						 @Idx.Option(index = "3.3", pkg = @Pkg(label = "Bar Chart", value = "bar"))
 					   }) @Pkg(label = "ChartType", default_value = "line", default_value_type = STRING) @NotEmpty String charttype,
-					   @Idx(index = "3", type = TEXT) @Pkg(label = "Chart Label", default_value_type = STRING) @NotEmpty String chartlabel,
-					   @Idx(index = "4", type = TEXT) @Pkg(label = "X-Axis Label", default_value_type = STRING) @NotEmpty String xlabel,
-					   @Idx(index = "5", type = TEXT) @Pkg(label = "Y-Axist Label", default_value_type = STRING) @NotEmpty String ylabel,
-					   @Idx(index = "6", type = AttributeType.NUMBER) @Pkg(label = "Width", default_value_type = DataType.NUMBER) @NotEmpty Double width,
-					   @Idx(index = "7", type = AttributeType.NUMBER) @Pkg(label = "Height", default_value_type = DataType.NUMBER) @NotEmpty Double height) throws Exception {
+					   @Idx(index = "4", type = TEXT) @Pkg(label = "Chart Label", default_value_type = STRING) @NotEmpty String chartlabel,
+					   @Idx(index = "5", type = TEXT) @Pkg(label = "X-Axis Label", default_value_type = STRING)  String xlabel,
+					   @Idx(index = "6", type = TEXT) @Pkg(label = "Y-Axist Label", default_value_type = STRING)  String ylabel,
+					   @Idx(index = "7", type = AttributeType.NUMBER) @Pkg(label = "Width", default_value_type = DataType.NUMBER) @NotEmpty Double width,
+					   @Idx(index = "8", type = AttributeType.NUMBER) @Pkg(label = "Height", default_value_type = DataType.NUMBER) @NotEmpty Double height) throws Exception {
 		
 		
 
@@ -109,13 +111,13 @@ public class ShowChart  {
 		            public void run() {
 		            	switch (charttype) {
 		            		case "pie":
-		            			initPieChart(record,chartlabel);
+		            			initPieChart(record1,chartlabel);
 		            			break;
 		            		case "bar":
-		            			initBarChart(record,chartlabel,xlabel,ylabel);
+		            			initBarChart(record1,record2,chartlabel,xlabel,ylabel);
 		            			break;
 		            		default:
-			            		initLineChart(record,chartlabel,xlabel,ylabel);
+			            		initLineChart(record1,record2,chartlabel,xlabel,ylabel);
 			            }
 		            }
 		       });
@@ -127,7 +129,7 @@ public class ShowChart  {
 	}
 
 
-  private  void initLineChart(Record record, String chartlabel,String xlabel,String ylabel) {
+  private  void initLineChart(Record record1, Record record2, String chartlabel,String xlabel,String ylabel) {
 	  
     
 
@@ -141,11 +143,13 @@ public class ShowChart  {
          //defining the axes
          CategoryAxis xAxis = new CategoryAxis();
          Axis<Number> yAxis = new NumberAxis();
+         xlabel = (xlabel == null) ? "" : xlabel;
+         ylabel = (ylabel == null) ? "" : ylabel;
          xAxis.setLabel(xlabel);
          yAxis.setLabel(ylabel);
          //creating the chart
          LineChart<String, Double> lineChart = new LineChart(xAxis, yAxis);
-         lineChart.setData(getXYChartData(record));                
+         lineChart.setData(getXYChartData(record1,record2));                
          lineChart.setTitle(chartlabel);
          lineChart.setLegendVisible(false);
 
@@ -154,12 +158,13 @@ public class ShowChart  {
     	 URL url = this.getClass().getResource("/css/styles.css");
 	     scene.getStylesheets().add(url.toExternalForm());
     	 window.getPanel().setScene(scene);
+  
 
    
   	 }
   
   
-  private  void initBarChart(Record record, String chartlabel,String xlabel,String ylabel) {
+  private  void initBarChart(Record record1, Record record2, String chartlabel,String xlabel,String ylabel) {
 	  
 	    
 
@@ -173,20 +178,22 @@ public class ShowChart  {
       //defining the axes
       CategoryAxis xAxis = new CategoryAxis();
       Axis<Number> yAxis = new NumberAxis();
+      xlabel = (xlabel == null) ? "" : xlabel;
+      ylabel = (ylabel == null) ? "" : ylabel;
       xAxis.setLabel(xlabel);
       yAxis.setLabel(ylabel);
       //creating the chart
       BarChart<String, Double> barChart = new BarChart(xAxis, yAxis);
-      barChart.setData(getXYChartData(record));                
+      barChart.setData(getXYChartData(record1,record2));                
       barChart.setTitle(chartlabel);
       barChart.setLegendVisible(false);
+      
 
 
  	 Scene  scene  =  new  Scene(barChart, Color.WHITE);
  	 URL url = this.getClass().getResource("/css/styles.css");
 	     scene.getStylesheets().add(url.toExternalForm());
  	 window.getPanel().setScene(scene);
-
 
 	 }
   
@@ -218,21 +225,34 @@ public class ShowChart  {
  
 
   
-  private ObservableList<XYChart.Series<String, Double>> getXYChartData(Record record) {
+  private ObservableList<XYChart.Series<String, Double>> getXYChartData(Record record1, Record record2) {
 
       ObservableList<XYChart.Series<String, Double>> result = FXCollections.observableArrayList();
     
-      Series<String, Double>  series = new Series<String, Double>();
+      Series<String, Double>  series1 = new Series<String, Double>();
       
-      List<Value> yvalues = record.getValues();
-      List<Schema> xvalues = record.getSchema();
+      List<Value> yvalues1 = record1.getValues();
+      List<Schema> xvalues1 = record1.getSchema();
       
       int index = 0;
-      for ( Schema x : xvalues)
+      for ( Schema x : xvalues1)
       {	
-          series.getData().add(new Data<String, Double>(x.getName().toString(), Double.parseDouble(yvalues.get(index++).toString())));
+          series1.getData().add(new Data<String, Double>(x.getName().toString(), Double.parseDouble(yvalues1.get(index++).toString())));
       }
-      result.add(series);
+      result.add(series1);
+      if (record2 != null)
+      {
+          Series<String, Double>  series2 = new Series<String, Double>();
+          List<Value> yvalues2 = record2.getValues();
+          List<Schema> xvalues2 = record2.getSchema();
+          
+          index = 0;
+          for ( Schema x : xvalues2)
+          {	
+              series2.getData().add(new Data<String, Double>(x.getName().toString(), Double.parseDouble(yvalues2.get(index++).toString())));
+          }
+      result.add(series2);
+      }
       return result;
     }
   

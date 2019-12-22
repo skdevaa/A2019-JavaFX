@@ -127,11 +127,8 @@ public class FileChooser  {
  	  TextField textElement = new TextField ();  
  	  textElement.setPrefWidth(500);
  	  Button browse= new Button("Browse");
-	  browse.setPrefWidth(100);
  	  Button ok= new Button("OK");
- 	  ok.setPrefWidth(100);
  	  Button cancel= new Button("Cancel");
- 	  cancel.setPrefWidth(100);
  	  GridPane innergridbut = new GridPane();
  	  innergridbut.setAlignment(Pos.CENTER);
       HBox hbButtons = new HBox();

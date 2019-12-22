@@ -32,9 +32,10 @@ public final class ShowChartCommand implements BotCommand {
       Map<String, Value> parameters, Map<String, Object> sessionMap) {
     logger.traceEntry(() -> parameters != null ? parameters.toString() : null, ()-> sessionMap != null ?sessionMap.toString() : null);
     ShowChart command = new ShowChart();
-    if(parameters.get("record") == null || parameters.get("record").get() == null) {
-      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","record"));
+    if(parameters.get("record1") == null || parameters.get("record1").get() == null) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","record1"));
     }
+
 
     if(parameters.get("charttype") == null || parameters.get("charttype").get() == null) {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","charttype"));
@@ -61,13 +62,7 @@ public final class ShowChartCommand implements BotCommand {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","chartlabel"));
     }
 
-    if(parameters.get("xlabel") == null || parameters.get("xlabel").get() == null) {
-      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","xlabel"));
-    }
 
-    if(parameters.get("ylabel") == null || parameters.get("ylabel").get() == null) {
-      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","ylabel"));
-    }
 
     if(parameters.get("width") == null || parameters.get("width").get() == null) {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","width"));
@@ -77,8 +72,11 @@ public final class ShowChartCommand implements BotCommand {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","height"));
     }
 
-    if(parameters.get("record") != null && parameters.get("record").get() != null && !(parameters.get("record").get() instanceof Record)) {
-      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","record", "Record", parameters.get("record").get().getClass().getSimpleName()));
+    if(parameters.get("record1") != null && parameters.get("record1").get() != null && !(parameters.get("record1").get() instanceof Record)) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","record1", "Record", parameters.get("record1").get().getClass().getSimpleName()));
+    }
+    if(parameters.get("record2") != null && parameters.get("record2").get() != null && !(parameters.get("record2").get() instanceof Record)) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","record2", "Record", parameters.get("record2").get().getClass().getSimpleName()));
     }
     if(parameters.get("charttype") != null && parameters.get("charttype").get() != null && !(parameters.get("charttype").get() instanceof String)) {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","charttype", "String", parameters.get("charttype").get().getClass().getSimpleName()));
@@ -99,7 +97,7 @@ public final class ShowChartCommand implements BotCommand {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","height", "Double", parameters.get("height").get().getClass().getSimpleName()));
     }
     try {
-      command.action(parameters.get("record") != null ? (Record)parameters.get("record").get() : (Record)null ,parameters.get("charttype") != null ? (String)parameters.get("charttype").get() : (String)null ,parameters.get("chartlabel") != null ? (String)parameters.get("chartlabel").get() : (String)null ,parameters.get("xlabel") != null ? (String)parameters.get("xlabel").get() : (String)null ,parameters.get("ylabel") != null ? (String)parameters.get("ylabel").get() : (String)null ,parameters.get("width") != null ? (Double)parameters.get("width").get() : (Double)null ,parameters.get("height") != null ? (Double)parameters.get("height").get() : (Double)null );Optional<Value> result = Optional.empty();
+      command.action(parameters.get("record1") != null ? (Record)parameters.get("record1").get() : (Record)null ,parameters.get("record2") != null ? (Record)parameters.get("record2").get() : (Record)null ,parameters.get("charttype") != null ? (String)parameters.get("charttype").get() : (String)null ,parameters.get("chartlabel") != null ? (String)parameters.get("chartlabel").get() : (String)null ,parameters.get("xlabel") != null ? (String)parameters.get("xlabel").get() : (String)null ,parameters.get("ylabel") != null ? (String)parameters.get("ylabel").get() : (String)null ,parameters.get("width") != null ? (Double)parameters.get("width").get() : (Double)null ,parameters.get("height") != null ? (Double)parameters.get("height").get() : (Double)null );Optional<Value> result = Optional.empty();
       logger.traceExit(result);
       return result;
     }

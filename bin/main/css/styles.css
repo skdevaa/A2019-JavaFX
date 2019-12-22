@@ -60,6 +60,14 @@
     -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
 }
 
-.
-.default-color0.chart-series-line { -fx-stroke: #22bad9 }
+.default-color0.chart-bar { -fx-stroke:  #22bad9; }
+.default-color1.chart-bar { -fx-stroke:  #FFBC03; }
+
+
+.default-color0.chart-series-line { -fx-stroke:  #22bad9; }
 .default-color0.chart-line-symbol { -fx-background-color: #22bad9, white; }
+
+
+.default-color1.chart-series-line { -fx-stroke: #FFBC03; }
+.default-color1.chart-line-symbol { -fx-background-color: #FFBC03; white; }
+

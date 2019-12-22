@@ -38,6 +38,7 @@ import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -126,22 +127,19 @@ public class DirChooser  {
  	  TextField textElement = new TextField ();  
  	  textElement.setPrefWidth(500);
  	  Button browse= new Button("Browse");
-	  browse.setPrefWidth(100);
  	  Button ok= new Button("OK");
- 	  ok.setPrefWidth(100);
  	  Button cancel= new Button("Cancel");
- 	  cancel.setPrefWidth(100);
  	  GridPane innergridbut = new GridPane();
  	  innergridbut.setAlignment(Pos.CENTER);
       HBox hbButtons = new HBox();
  	  hbButtons.getChildren().addAll(ok,cancel);
  	  hbButtons.setSpacing(10.0);
  	  innergridbut.add(hbButtons, 0,1);
- 	  grid.add(label, 0,0);
+	  grid.add(label, 0,0);
  	  grid.add(textElement, 0,1);
  	  grid.add(browse, 1,1);
  	  grid.add(innergridbut, 0,2);
- 	  
+
     	 
       Scene  scene  =  new  Scene(grid, Color.WHITE);
  	  URL url = this.getClass().getResource("/css/styles.css");

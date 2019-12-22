@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20191222-202012",
-    "codeVersion": "2.0.0-20191222-202012",
+    "packageVersion": "2.0.0-20191222-231849",
+    "codeVersion": "2.0.0-20191222-231849",
     "commands": [
         {
             "name": "Alert",
@@ -274,14 +274,19 @@
             "icon": "jfx.svg",
             "attributes": [
                 {
-                    "name": "record",
-                    "label": "Chart Data",
+                    "name": "record1",
+                    "label": "Chart Data1",
                     "type": "VARIABLE",
                     "rules": [
                         {
                             "name": "NOT_EMPTY"
                         }
                     ]
+                },
+                {
+                    "name": "record2",
+                    "label": "Chart Data2",
+                    "type": "VARIABLE"
                 },
                 {
                     "name": "charttype",
@@ -324,22 +329,12 @@
                 {
                     "name": "xlabel",
                     "label": "X-Axis Label",
-                    "type": "TEXT",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
+                    "type": "TEXT"
                 },
                 {
                     "name": "ylabel",
                     "label": "Y-Axist Label",
-                    "type": "TEXT",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
+                    "type": "TEXT"
                 },
                 {
                     "name": "width",

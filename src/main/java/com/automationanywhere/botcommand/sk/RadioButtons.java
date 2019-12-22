@@ -14,6 +14,7 @@ package com.automationanywhere.botcommand.sk;
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
 
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
@@ -49,20 +50,19 @@ import javafx.scene.paint.Color;
  */
 
 @BotCommand
-@CommandPkg(label="Radio Buttons", name="RadioButtons", description="Dynamic List of Radio Buttons", icon="",
+@CommandPkg(label="Radio Buttons", name="RadioButtons", description="Dynamic List of Radio Buttons",  icon="jfx.svg",
 node_label="Radio Buttons",
 return_type=STRING, return_label="Selected", return_required=true)
 public class RadioButtons  {
 	
 	private String choosen = null;
 	private static Semaphore sem;
-	private JFrame frame = null;
     private String buttonlabel;
     private List<Value> options;
     private GridPane grid;
-    private Integer width;
-    private Integer height;
     private ToggleGroup group;
+	private FXWindow window;
+    
 	
 	@Execute
 	public Value<String> action(@Idx(index = "1", type = AttributeType.LIST) @Pkg(label = "Options", default_value_type = DataType.LIST) @NotEmpty List<Value> options ,
@@ -72,8 +72,6 @@ public class RadioButtons  {
 	{
 		
 		
-		 this.width = width.intValue();
-		 this.height = height.intValue();
 		 this.options = options;
 		 this.buttonlabel = label;
 		 this.group = new ToggleGroup();
@@ -82,7 +80,24 @@ public class RadioButtons  {
 		      this.sem = new Semaphore(1);
 		    }
 
-		  initAndShowGUI();
+	      window = new FXWindow("Radio Buttons", width.intValue(), height.intValue());
+	      this.sem.acquire();
+	         
+	      window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+	             @Override
+	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	            		quit();
+	             }
+	         });
+
+		     Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		                initFX();
+		            }
+		       });
+		  
+		  
 		   this.sem.acquire();
 		   this.sem.release();
 		   
@@ -92,39 +107,13 @@ public class RadioButtons  {
 	}
 
 
-    private  void initAndShowGUI() throws Exception  {
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame("Radio Buttons");  
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            	 quit();
-             }
-         });
 
-	        final JFXPanel fxPanel = new JFXPanel();
-	        frame.add(fxPanel);
-	        frame.setSize(this.width, this.height);
-	        frame.setLocation(700, 500);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                initFX(fxPanel);
-	            }
-	       });
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel) {
+  private  void initFX() {
 	  
     
 	  Button but1= new Button(this.buttonlabel);
-	  but1.setStyle("-fx-font-size: 12pt;");
 	  but1.setOnAction((e)->{
- 		 this.frame.setVisible(false);
+ 		 window.getFrame().setVisible(false);
  	     quit();
  	  });
     	 
@@ -142,7 +131,6 @@ public class RadioButtons  {
     	 RadioButton optionbutton = new RadioButton(option.get().toString());
     	 optionbutton.setToggleGroup(this.group);
     	 optionbutton.setSelected(false);
-    	 optionbutton.setStyle("-fx-font-size: 12pt;"); 
     	 this.grid.add(optionbutton, 1,row);
     	 row++;
 
@@ -153,7 +141,9 @@ public class RadioButtons  {
 	 innergrid.add(but1,1,1);
 	 this.grid.add(innergrid, 1,row);
 	 Scene  scene  =  new  Scene(this.grid, Color.WHITE);
-	 fxPanel.setScene(scene);
+	 URL url = this.getClass().getResource("/css/styles.css");
+     scene.getStylesheets().add(url.toExternalForm());
+	 window.getPanel().setScene(scene);
     	 
    
   	 }

@@ -1,0 +1,45 @@
+.button {
+    -fx-font-family: "Verdana";
+
+    -fx-background-color: white;
+    -fx-border-color: #FFBC03;
+    -fx-border-width:2px;
+    -fx-border-radius:3px;
+    -fx-font-size:11pt;
+    -fx-width:200px;
+}
+
+.button:hover {
+    -fx-background-color: #FFEFC4;
+}
+
+.label {
+    -fx-font-size:11pt;
+
+}
+
+.date-picker {
+    -fx-font-size:11pt;
+
+}
+
+.text-field {
+    -fx-font-size:11pt;
+
+}
+
+.dialog-pane {
+    -fx-font-size:11pt;
+    -fx-background-color: white;
+    -fx-border-color:#133A65;
+    -fx-border-width: 2 2 2 14;
+
+}
+
+
+
+.root {
+    -fx-background-color: white;
+    -fx-border-width:2px;
+    -fx-font-size:11pt;
+}

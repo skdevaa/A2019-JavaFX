@@ -17,6 +17,7 @@ import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import static com.automationanywhere.commandsdk.model.DataType.BOOLEAN;
 
 import java.io.File;
+import java.net.URL;
 import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
 
@@ -55,12 +56,12 @@ import javafx.stage.Window;
  */
 
 @BotCommand
-@CommandPkg(label="Date Picker", name="DatePicker", description="Choose a Date", icon="",
+@CommandPkg(label="Date Picker", name="DatePicker", description="Choose a Date",  icon="jfx.svg",
 node_label="DatePicker", return_type=DataType.DATETIME, return_label="Date", return_required=true)
 public class DatePicker  {
 	
 	private static Semaphore sem;
-	private JFrame frame = null;
+	private FXWindow window;
 	private String dirname="";
 	private DateTimeValue datevalue;
 	
@@ -74,50 +75,38 @@ public class DatePicker  {
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
+		  
+		  
+	    this.sem.acquire();
+	    window = new FXWindow("Directory Chooser",500,200);
+	    window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+	             @Override
+	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	            	 quit();
+	             }
+	         });
 
-		  initAndShowGUI(startend);
-		   this.sem.acquire();
-		   this.sem.release();
+	   Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		        	  try {
+						initFX(startend);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		            }
+		       });
+
+      this.sem.acquire();
+      this.sem.release();
 		   
-		   return this.datevalue;
+	  return this.datevalue;
     
 	}
 
 
-    private  void initAndShowGUI(Boolean startend) throws Exception  {
-        // This method is invoked on the JavaFX thread
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame("Date Pickerr");  
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            	 quit();
-             }
-         });
-
-	        final JFXPanel fxPanel = new JFXPanel();
-	        frame.add(fxPanel);
-	        frame.setSize(500,200);
-	        frame.setLocation(700, 500);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	        	  try {
-					initFX(fxPanel,startend);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            }
-	       });
-	        
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel,Boolean startend) throws Exception {
+  private  void initFX(Boolean startend) throws Exception {
 	  
 	  
 	  GridPane grid = new GridPane();    	
@@ -128,20 +117,14 @@ public class DatePicker  {
 
 	  javafx.scene.control.DatePicker datepicker1 = new javafx.scene.control.DatePicker();
 	  javafx.scene.control.DatePicker datepicker2 = new javafx.scene.control.DatePicker();
-	  datepicker1.setStyle("-fx-font-size: 12pt;");
-	  datepicker2.setStyle("-fx-font-size: 12pt;");
-	  
+
  	  Label label1 = new Label();
- 	  label1.setStyle("-fx-font-size: 12pt;");
  	  label1.setText("Start");
  	  Label label2 = new Label();
- 	  label2.setStyle("-fx-font-size: 12pt;");
  	  label2.setText("End");
  	  Button ok= new Button("OK");
  	  ok.setPrefWidth(100);
-	  ok.setStyle("-fx-font-size: 12pt;");
  	  Button cancel= new Button("Cancel");
-	  cancel.setStyle("-fx-font-size: 12pt;");
  	  cancel.setPrefWidth(100);
  	  GridPane innergridbut = new GridPane();
  	  innergridbut.setAlignment(Pos.CENTER);
@@ -180,7 +163,9 @@ public class DatePicker  {
  	  
     	 
       Scene  scene  =  new  Scene(grid, Color.WHITE);
-      fxPanel.setScene(scene);
+ 	  URL url = this.getClass().getResource("/css/styles.css");
+	  scene.getStylesheets().add(url.toExternalForm());
+ 	  window.getPanel().setScene(scene);
      
       
 	  datepicker1.setOnAction((e)->{
@@ -192,12 +177,12 @@ public class DatePicker  {
 		 });
       
  	 ok.setOnAction((e)->{
-		 this.frame.setVisible(false);
+		 window.getFrame().setVisible(false);
 	     quit();
 
 	 });
  	 cancel.setOnAction((e)->{
-		 this.frame.setVisible(false);
+		 window.getFrame().setVisible(false);
 	     quit();
 
 	 });

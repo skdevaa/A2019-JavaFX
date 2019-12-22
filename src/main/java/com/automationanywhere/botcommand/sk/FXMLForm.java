@@ -69,20 +69,17 @@ import javafx.scene.paint.Color;
  */
 
 @BotCommand
-@CommandPkg(label="FXML Form", name="FXMLForm", description="FXML Form", icon="",
+@CommandPkg(label="FXML Form", name="FXMLForm", description="FXML Form",  icon="jfx.svg",
 node_label="FXML Form",
 return_type=DataType.DICTIONARY, return_label="Result", return_sub_type= STRING , return_required=true)
 public class FXMLForm  {
 	
 	private String pressed = null;
 	private static Semaphore sem;
-	private JFrame frame = null;
 	private HashMap<String,Value>  dict;
 	private Parent root ;
-	private int width;
-	private int height; 
-	
-	   private static Logger logger = LogManager.getLogger(FXMLForm.class);
+	private FXWindow window;
+
 	
 	@Execute
 	public DictionaryValue action(@Idx(index = "1", type = AttributeType.FILE) @Pkg(label = "FXML File", default_value_type = DataType.FILE) @NotEmpty String fxml,
@@ -94,19 +91,32 @@ public class FXMLForm  {
 		
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
-		    }
-		  
-		  this.width = width.intValue();
-		  this.height = height.intValue();
-			 
+		    }	 
 
+		  this.sem.acquire();
 		  this.dict = dict;	
+		  
 		  URL url = Paths.get(fxml).toUri().toURL();
 		  FXMLLoader fxmlloader = new FXMLLoader(url);
 		  fxmlloader.setController(this); 
 	      this.root = fxmlloader.load();
 
-	      initAndShowGUI(title);
+	      window = new FXWindow(title, width.intValue(), height.intValue());
+	     
+
+	      window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+	             @Override
+	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	            	 quit();
+	             }
+	         });
+
+          Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		                initFX();
+		            }
+		   });
 
 		   this.sem.acquire();
 		   this.sem.release();
@@ -115,33 +125,7 @@ public class FXMLForm  {
 	}
 
 
-    private  void initAndShowGUI(String title) throws Exception  {
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame(title);  
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            	 quit();
-             }
-         });
-
-	        final JFXPanel fxPanel = new JFXPanel();
-	        frame.add(fxPanel);
-	        frame.setSize(this.width,this.height);
-	        frame.setLocation(700, 500);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                initFX(fxPanel);
-	            }
-	       });
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel) {
+  private  void initFX() {
 	  
 	   List<String> bools = Arrays.asList("true","false");
 	   List<Node> childs = getAllNodesInParent(this.root);
@@ -184,7 +168,9 @@ public class FXMLForm  {
 	  
 	    
 	     Scene scene = new Scene(this.root);
-         fxPanel.setScene(scene);  
+    	 URL url = this.getClass().getResource("/css/styles.css");
+	     scene.getStylesheets().add(url.toExternalForm());
+    	 window.getPanel().setScene(scene);
   	 }
 	     
   
@@ -237,13 +223,13 @@ public class FXMLForm  {
 						 
 		    }   
 	   }
-	   this.frame.setVisible(false);
+	   window.getFrame().setVisible(false);
 	   this.sem.release();
 	}
 
   @FXML
   protected void quit() {
-		 this.frame.setVisible(false);
+	  	 window.getFrame().setVisible(false);
 		 this.sem.release();
 	}
 

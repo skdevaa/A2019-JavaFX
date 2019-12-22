@@ -14,6 +14,7 @@ package com.automationanywhere.botcommand.sk;
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import java.awt.Dimension;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -53,15 +54,12 @@ import javafx.util.StringConverter;
  */
 
 @BotCommand
-@CommandPkg(label="Show Record", name="ShowRecord", description="Show Record variable", icon="",
+@CommandPkg(label="Show Record", name="ShowRecord", description="Show Record variable", icon="jfx.svg",
 node_label="Show Record")
 public class ShowRecord  {
 	
 	private static Semaphore sem;
-	private JFrame frame = null;
-	
-    private Integer width;
-    private Integer height;
+	private FXWindow window;
 	
 	@Execute
 	public void action(@Idx(index = "1", type = AttributeType.VARIABLE) @Pkg(label = "Record", default_value_type = DataType.RECORD) @NotEmpty Record record,
@@ -70,15 +68,28 @@ public class ShowRecord  {
 					   @Idx(index = "4", type = AttributeType.NUMBER) @Pkg(label = "Height", default_value_type = DataType.NUMBER) @NotEmpty Double height) throws Exception {
 		
 		
-		 this.width = width.intValue();
-		 this.height = height.intValue();
+
 		 
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
+	    	 this.sem.acquire();
+		      window = new FXWindow("Record View", width.intValue(), height.intValue());
+	         
+	         window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+	             @Override
+	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	            		quit();
+	             }
+	         });
+		     
+	         Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		                initFX(record,label);
+		            }
+		       });
 
-
-		  initAndShowGUI(record,label);
 		   this.sem.acquire();
 		   this.sem.release();
     
@@ -86,42 +97,13 @@ public class ShowRecord  {
 	}
 
 
-    private  void initAndShowGUI(Record record, String label) throws Exception  {
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame("Record View");  
-         
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            		quit();
-             }
-         });
-
-	        frame.setSize(this.width, this.height);
-	        frame.setLocation(500, 400);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        final JFXPanel fxPanel = new JFXPanel();
-	        fxPanel.setPreferredSize(new Dimension(this.width*10, this.height*10));
-	        frame.add(fxPanel);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                initFX(fxPanel,record,label);
-	            }
-	       });
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel,Record record, String buttonlabel) {
+  private  void initFX(Record record, String buttonlabel) {
 	  
     
 
     	 Button but1= new Button(buttonlabel);
-    	 but1.setStyle("-fx-font-size: 12pt;");
     	 but1.setOnAction((e)->{
-    		 this.frame.setVisible(false);
+    		 window.getFrame().setVisible(false);
     	     quit();
     	 });
 
@@ -174,7 +156,9 @@ public class ShowRecord  {
 
 
     	 Scene  scene  =  new  Scene(grid, Color.WHITE);
-         fxPanel.setScene(scene);
+    	 URL url = this.getClass().getResource("/css/styles.css");
+	     scene.getStylesheets().add(url.toExternalForm());
+    	 window.getPanel().setScene(scene);
 
    
   	 }

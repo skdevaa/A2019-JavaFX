@@ -18,6 +18,7 @@ import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import static com.automationanywhere.commandsdk.model.DataType.NUMBER;
 
 import java.awt.Insets;
+import java.net.URL;
 import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
 
@@ -58,12 +59,11 @@ import javafx.stage.WindowEvent;
  */
 
 @BotCommand
-@CommandPkg(label="Alert", name="Alert", description="Shows Alert message", icon="",
+@CommandPkg(label="Alert", name="Alert", description="Shows Alert message",  icon="jfx.svg",
 node_label="Alert")
 public class Alert  {
 	
 	private static Semaphore sem;
-	private JFrame frame = null;
 	
 	@Execute
 	public void action(@Idx(index = "1", type = TEXT) @Pkg(label = "Message", default_value_type = STRING) @NotEmpty String message,
@@ -80,27 +80,20 @@ public class Alert  {
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);		    
 		  }
-
-		   initAndShowGUI(message,type,width);
+		  
+	    	 this.sem.acquire();
+		        Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		                initFX(message,type,width);
+		            }
+		       });
+		        
 		   this.sem.acquire();
 		   this.sem.release();
     
 	}
 
-
-    private  void initAndShowGUI(String message,String type,Double width) throws Exception  {
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                initFX(message,type,width);
-	            }
-	       });
-	        
-
-	        
-    }
 
   private  void initFX(String message, String type, Double width) {
 	  
@@ -111,7 +104,6 @@ public class Alert  {
       alert.setContentText(message);
 
       DialogPane root = alert.getDialogPane();
-      root.setStyle("-fx-font-size: 12pt;");
       Stage dialogStage = new Stage(StageStyle.UTILITY);
       
 
@@ -121,7 +113,6 @@ public class Alert  {
       });
       for (ButtonType buttonType : root.getButtonTypes()) {
           ButtonBase button = (ButtonBase) root.lookupButton(buttonType);
-          button.setStyle("-fx-font-size: 12pt;");
           button.setOnAction(evt -> {
               dialogStage.close();
               quit();
@@ -131,6 +122,8 @@ public class Alert  {
       
       root.getScene().setRoot(new Group());
       Scene scene = new Scene(root);	
+ 	  URL url = this.getClass().getResource("/css/styles.css");
+	  scene.getStylesheets().add(url.toExternalForm());
       dialogStage.setScene(scene);
       dialogStage.setTitle(type);
       dialogStage.initModality(Modality.APPLICATION_MODAL);

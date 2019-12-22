@@ -17,6 +17,7 @@ import static com.automationanywhere.commandsdk.model.DataType.STRING;
 
 
 import java.io.File;
+import java.net.URL;
 import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
 
@@ -53,15 +54,15 @@ import javafx.stage.Window;
  */
 
 @BotCommand
-@CommandPkg(label="Directory Chooser", name="DirChooser", description="Choose File", icon="",
+@CommandPkg(label="Directory Chooser", name="DirChooser", description="Choose File",  icon="jfx.svg",
 node_label="DirChooser", return_type=STRING, return_label="Directory", return_required=true)
 public class DirChooser  {
 	
 	private static Semaphore sem;
-	private JFrame frame = null;
 	private String dirname="";
 	private String directory = null;
 	private String message = "";
+	private FXWindow window;
 	
 	@Execute
 	public Value<String> action(@Idx(index = "1", type = TEXT) @Pkg(label = "Message", default_value_type = STRING) @NotEmpty String message,
@@ -77,7 +78,27 @@ public class DirChooser  {
 		  this.directory = (dir == null || dir.equals("")) ? null : dir;
 		  this.message = message;
 
-		  initAndShowGUI();
+	      this.sem.acquire();
+	      window = new FXWindow("Directory Chooser",700,300);
+	      window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+	             @Override
+	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	            	 quit();
+	             }
+	         });
+
+		   Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		        	  try {
+						initFX();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		            }
+		       });
+		  
 		   this.sem.acquire();
 		   this.sem.release();
 		   
@@ -86,40 +107,7 @@ public class DirChooser  {
 	}
 
 
-    private  void initAndShowGUI() throws Exception  {
-        // This method is invoked on the JavaFX thread
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame("Directory Chooser");  
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            	 quit();
-             }
-         });
-
-	        final JFXPanel fxPanel = new JFXPanel();
-	        frame.add(fxPanel);
-	        frame.setSize(700,200);
-	        frame.setLocation(700, 500);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	        	  try {
-					initFX(fxPanel);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            }
-	       });
-	        
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel) throws Exception {
+  private  void initFX() throws Exception {
 	  
 
 	  javafx.stage.DirectoryChooser dirChooser = new javafx.stage.DirectoryChooser();
@@ -135,19 +123,14 @@ public class DirChooser  {
       grid.setAlignment(Pos.CENTER);
   
  	  Label label = new Label();
- 	  label.setStyle("-fx-font-size: 12pt;");
  	  label.setText(this.message);
  	  TextField textElement = new TextField ();  
- 	  textElement.setStyle("-fx-font-size: 12pt;");
  	  textElement.setPrefWidth(500);
  	  Button browse= new Button("Browse");
-	  browse.setStyle("-fx-font-size: 12pt;-fx-base: #b4b4b4");
 	  browse.setPrefWidth(100);
  	  Button ok= new Button("OK");
  	  ok.setPrefWidth(100);
-	  ok.setStyle("-fx-font-size: 12pt;");
  	  Button cancel= new Button("Cancel");
-	  cancel.setStyle("-fx-font-size: 12pt;");
  	  cancel.setPrefWidth(100);
  	  GridPane innergridbut = new GridPane();
  	  innergridbut.setAlignment(Pos.CENTER);
@@ -162,11 +145,13 @@ public class DirChooser  {
  	  
     	 
       Scene  scene  =  new  Scene(grid, Color.WHITE);
-      fxPanel.setScene(scene);
+ 	  URL url = this.getClass().getResource("/css/styles.css");
+	  scene.getStylesheets().add(url.toExternalForm());
+ 	  window.getPanel().setScene(scene);
      
 
   	 browse.setOnAction((e)->{
-  		 Window win =  fxPanel.getScene().getWindow();
+  		 Window win =  window.getPanel().getScene().getWindow();
 		File dir = dirChooser.showDialog(win);
 		setFileName(dir.getAbsolutePath());
 		textElement.setText(dir.getAbsolutePath());
@@ -174,12 +159,12 @@ public class DirChooser  {
  	 });
       
  	 ok.setOnAction((e)->{
-		 this.frame.setVisible(false);
+ 		window.getFrame().setVisible(false);
 	     quit();
 
 	 });
  	 cancel.setOnAction((e)->{
-		 this.frame.setVisible(false);
+ 		window.getFrame().setVisible(false);
 	     quit();
 
 	 });

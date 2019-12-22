@@ -13,6 +13,8 @@ package com.automationanywhere.botcommand.sk;
 
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
+
+import java.net.URL;
 import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
 import com.automationanywhere.botcommand.data.Value;
@@ -42,14 +44,14 @@ import javafx.scene.paint.Color;
  */
 
 @BotCommand
-@CommandPkg(label="Three Buttons", name="ThreeButtons", description="ThreeButtons", icon="",
+@CommandPkg(label="Three Buttons", name="ThreeButtons", description="ThreeButtons", icon="jfx.svg",
 node_label="Three Buttons",
 return_type=STRING, return_label="Pressed", return_required=true)
 public class ThreeButtons  {
 	
 	private String pressed = null;
 	private static Semaphore sem;
-	private JFrame frame = null;
+	private FXWindow window;
 	
 	@Execute
 	public Value<String> action(@Idx(index = "1", type = TEXT) @Pkg(label = "Title", default_value_type = STRING) @NotEmpty String title ,
@@ -64,42 +66,22 @@ public class ThreeButtons  {
 		    }
 
 		  
-
-		  initAndShowGUI(title,label,button1,button2,button3);
-		   this.sem.acquire();
-		   this.sem.release();
+	     this.sem.acquire();
+	     window = new FXWindow(title, 500, 200);
+		        Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		                initFX(label,button1,button2,button3);
+		            }
+		   });
+		  this.sem.acquire();
+		  this.sem.release();
     
 		return new StringValue(this.pressed);
 	}
 
 
-    private  void initAndShowGUI(String title,String label, String button1, String button2, String button3) throws Exception  {
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame(title);  
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            	 quit();
-             }
-         });
-
-	        final JFXPanel fxPanel = new JFXPanel();
-	        frame.add(fxPanel);
-	        frame.setSize(500,200);
-	        frame.setLocation(700, 500);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                initFX(fxPanel,label,button1,button2,button3);
-	            }
-	       });
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel,String label, String button1, String button2, String button3) {
+  private  void initFX(String label, String button1, String button2, String button3) {
 	  
     
 	  	 Label lab = new Label(label);
@@ -107,26 +89,22 @@ public class ThreeButtons  {
     	 Button but2 = new Button(button2);
     	 Button but3 = new Button(button3);
     	 
- 	    lab.setStyle("-fx-font-size: 12pt;");
- 	    but1.setStyle("-fx-font-size: 12pt;");
- 	    but2.setStyle("-fx-font-size: 12pt;");
- 	    but3.setStyle("-fx-font-size: 12pt;");
     	 
     	 but1.setOnAction((e)->{
-    		 this.frame.setVisible(false);
+    		 window.getFrame().setVisible(false);
     	     this.pressed = button1;
     	     quit();
 
     	 });
     	 but2.setOnAction((e)->{
-    		 this.frame.setVisible(false);
+    		 window.getFrame().setVisible(false);
     	     this.pressed = button2;
     	     quit();
 
     	 });
     	 
     	 but3.setOnAction((e)->{
-    		 this.frame.setVisible(false);
+    		 window.getFrame().setVisible(false);
     	     this.pressed = button3;
     	     quit();
 
@@ -152,8 +130,9 @@ public class ThreeButtons  {
     	 grid.setPrefWidth(400);
 
     	 Scene  scene  =  new  Scene(grid, Color.WHITE);
-
-         fxPanel.setScene(scene);
+    	 URL url = this.getClass().getResource("/css/styles.css");
+	     scene.getStylesheets().add(url.toExternalForm());
+    	 window.getPanel().setScene(scene);
     	 
    
   	 }

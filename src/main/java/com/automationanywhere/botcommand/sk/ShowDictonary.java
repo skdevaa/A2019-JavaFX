@@ -14,6 +14,7 @@ package com.automationanywhere.botcommand.sk;
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import java.awt.Dimension;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -52,15 +53,13 @@ import javafx.util.StringConverter;
  */
 
 @BotCommand
-@CommandPkg(label="Show Dictionary", name="ShowDictionary", description="Show Dictionary variable", icon="",
+@CommandPkg(label="Show Dictionary", name="ShowDictionary", description="Show Dictionary variable",  icon="jfx.svg",
 node_label="Show Dictionary")
 public class ShowDictonary  {
 	
 	private static Semaphore sem;
-	private JFrame frame = null;
-	
-    private Integer width;
-    private Integer height;
+	private FXWindow window;
+
 	
 	@Execute
 	public void action(@Idx(index = "1", type = AttributeType.VARIABLE) @Pkg(label = "Dictonary", default_value_type = DataType.DICTIONARY) @NotEmpty HashMap<String,Value> dict ,
@@ -68,16 +67,28 @@ public class ShowDictonary  {
 					   @Idx(index = "3", type = AttributeType.NUMBER) @Pkg(label = "Width", default_value_type = DataType.NUMBER) @NotEmpty Double width,
 					   @Idx(index = "4", type = AttributeType.NUMBER) @Pkg(label = "Height", default_value_type = DataType.NUMBER) @NotEmpty Double height) throws Exception {
 		
-		
-		 this.width = width.intValue();
-		 this.height = height.intValue();
+
 		 
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
 		    }
 
+	      window = new FXWindow("Dictionary View", width.intValue(), height.intValue());
+	      this.sem.acquire();
+	         
+	      window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+	             @Override
+	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	            		quit();
+	             }
+	         });
 
-		  initAndShowGUI(dict,label);
+		     Platform.runLater(new Runnable() {
+		            @Override
+		            public void run() {
+		                initFX(dict,label);
+		            }
+		       });
 		   this.sem.acquire();
 		   this.sem.release();
     
@@ -85,42 +96,13 @@ public class ShowDictonary  {
 	}
 
 
-    private  void initAndShowGUI(HashMap<String,Value> dict, String label) throws Exception  {
-        // This method is invoked on the JavaFX thread
-    	 this.sem.acquire();
-         this.frame = new JFrame("Dictionary View");  
-         
-         this.frame.addWindowListener(new java.awt.event.WindowAdapter() {
-             @Override
-             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            		quit();
-             }
-         });
-
-	        frame.setSize(this.width, this.height);
-	        frame.setLocation(500, 400);
-	        frame.setVisible(true);
-	        frame.setAlwaysOnTop(true);
-	        final JFXPanel fxPanel = new JFXPanel();
-	        fxPanel.setPreferredSize(new Dimension(this.width*10, this.height*10));
-	        frame.add(fxPanel);
-	        Platform.runLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                initFX(fxPanel,dict,label);
-	            }
-	       });
-	        
-    }
-
-  private  void initFX(JFXPanel fxPanel,HashMap<String,Value> dict, String buttonlabel) {
+  private  void initFX(HashMap<String,Value> dict, String buttonlabel) {
 	  
     
 
     	 Button but1= new Button(buttonlabel);
-    	 but1.setStyle("-fx-font-size: 12pt;");
     	 but1.setOnAction((e)->{
-    		 this.frame.setVisible(false);
+    		 window.getFrame().setVisible(false);
     	     quit();
     	 });
 
@@ -173,7 +155,9 @@ public class ShowDictonary  {
 
 
     	 Scene  scene  =  new  Scene(grid, Color.WHITE);
-         fxPanel.setScene(scene);
+     	 URL url = this.getClass().getResource("/css/styles.css");
+	     scene.getStylesheets().add(url.toExternalForm());
+    	 window.getPanel().setScene(scene);
 
    
   	 }

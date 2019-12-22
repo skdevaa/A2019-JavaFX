@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "1.0.0-20191220-153905",
-    "codeVersion": "1.0.0-20191220-153905",
+    "packageVersion": "2.0.0-20191222-143520",
+    "codeVersion": "2.0.0-20191222-143520",
     "commands": [
         {
             "name": "Alert",
@@ -13,6 +13,7 @@
             "description": "Shows Alert message",
             "nodeLabel": "Alert",
             "mainClass": "com.automationanywhere.botcommand.sk.AlertCommand",
+            "icon": "jfx.svg",
             "attributes": [
                 {
                     "name": "message",
@@ -70,6 +71,7 @@
             "description": "Choose a Date",
             "nodeLabel": "DatePicker",
             "mainClass": "com.automationanywhere.botcommand.sk.DatePickerCommand",
+            "icon": "jfx.svg",
             "returnType": "DATETIME",
             "returnSubtype": "UNDEFINED",
             "returnLabel": "Date",
@@ -93,6 +95,7 @@
             "description": "Choose File",
             "nodeLabel": "DirChooser",
             "mainClass": "com.automationanywhere.botcommand.sk.DirChooserCommand",
+            "icon": "jfx.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
             "returnLabel": "Directory",
@@ -116,64 +119,12 @@
             ]
         },
         {
-            "name": "DynamicForm",
-            "label": "Dynamic Form",
-            "description": "Builds Form based on Dictionay Input",
-            "nodeLabel": "Dynamic Form",
-            "mainClass": "com.automationanywhere.botcommand.sk.DynamicFormCommand",
-            "returnType": "DICTIONARY",
-            "returnSubtype": "STRING",
-            "returnLabel": "",
-            "returnRequired": true,
-            "attributes": [
-                {
-                    "name": "dict",
-                    "label": "Dictonary",
-                    "type": "VARIABLE",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
-                },
-                {
-                    "name": "label",
-                    "label": "Button Label",
-                    "type": "TEXT",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
-                },
-                {
-                    "name": "width",
-                    "label": "Width",
-                    "type": "NUMBER",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
-                },
-                {
-                    "name": "height",
-                    "label": "Height",
-                    "type": "NUMBER",
-                    "rules": [
-                        {
-                            "name": "NOT_EMPTY"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "name": "FileChooser",
             "label": "File Chooser",
             "description": "Choose File",
             "nodeLabel": "FileChooser",
             "mainClass": "com.automationanywhere.botcommand.sk.FileChooserCommand",
+            "icon": "jfx.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
             "returnLabel": "File",
@@ -202,6 +153,7 @@
             "description": "FXML Form",
             "nodeLabel": "FXML Form",
             "mainClass": "com.automationanywhere.botcommand.sk.FXMLFormCommand",
+            "icon": "jfx.svg",
             "returnType": "DICTIONARY",
             "returnSubtype": "STRING",
             "returnLabel": "Result",
@@ -265,6 +217,7 @@
             "description": "Dynamic List of Radio Buttons",
             "nodeLabel": "Radio Buttons",
             "mainClass": "com.automationanywhere.botcommand.sk.RadioButtonsCommand",
+            "icon": "jfx.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
             "returnLabel": "Selected",
@@ -318,6 +271,7 @@
             "description": "Show Dictionary variable",
             "nodeLabel": "Show Dictionary",
             "mainClass": "com.automationanywhere.botcommand.sk.ShowDictonaryCommand",
+            "icon": "jfx.svg",
             "attributes": [
                 {
                     "name": "dict",
@@ -367,6 +321,7 @@
             "description": "Show Record variable",
             "nodeLabel": "Show Record",
             "mainClass": "com.automationanywhere.botcommand.sk.ShowRecordCommand",
+            "icon": "jfx.svg",
             "attributes": [
                 {
                     "name": "record",
@@ -416,6 +371,7 @@
             "description": "Show Table variable",
             "nodeLabel": "Show Table",
             "mainClass": "com.automationanywhere.botcommand.sk.ShowTableCommand",
+            "icon": "jfx.svg",
             "attributes": [
                 {
                     "name": "table",
@@ -465,6 +421,7 @@
             "description": "ThreeButtons",
             "nodeLabel": "Three Buttons",
             "mainClass": "com.automationanywhere.botcommand.sk.ThreeButtonsCommand",
+            "icon": "jfx.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
             "returnLabel": "Pressed",
@@ -528,6 +485,7 @@
             "description": "Two Buttons",
             "nodeLabel": "Two Buttons",
             "mainClass": "com.automationanywhere.botcommand.sk.TwoButtonsCommand",
+            "icon": "jfx.svg",
             "returnType": "STRING",
             "returnSubtype": "UNDEFINED",
             "returnLabel": "Pressed",

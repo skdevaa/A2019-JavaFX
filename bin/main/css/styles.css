@@ -23,6 +23,23 @@
 
 }
 
+
+.combo-box 
+{
+    -fx-font-size:11pt;
+    -fx-background: white;
+    -fx-border-color: #FFBC03;
+    -fx-border-width:2px;
+    -fx-border-radius:3px;
+    -fx-background-color: transparent; 
+}
+
+.text-field {
+    -fx-font-size:11pt;
+
+}
+
+
 .text-field {
     -fx-font-size:11pt;
 
@@ -46,7 +63,6 @@
 
 
 .chart-bar {
-    -fx-bar-fill: #22bad9;
     -fx-background-color: linear (0%,0%) to (0%,100%) 
         stops (0%, derive(-fx-bar-fill,-30%)) 
         (100%, derive(-fx-bar-fill,-40%)),
@@ -60,8 +76,8 @@
     -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
 }
 
-.default-color0.chart-bar { -fx-stroke:  #22bad9; }
-.default-color1.chart-bar { -fx-stroke:  #FFBC03; }
+.default-color0.chart-bar {    -fx-bar-fill: #22bad9; }
+.default-color1.chart-bar {    -fx-bar-fill:  #FFBC03; }
 
 
 .default-color0.chart-series-line { -fx-stroke:  #22bad9; }
@@ -69,5 +85,5 @@
 
 
 .default-color1.chart-series-line { -fx-stroke: #FFBC03; }
-.default-color1.chart-line-symbol { -fx-background-color: #FFBC03; white; }
+.default-color1.chart-line-symbol { -fx-background-color: #FFBC03, white; }
 

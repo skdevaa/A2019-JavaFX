@@ -50,7 +50,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -142,11 +144,28 @@ public class FXMLForm  {
 					
 				   }
 				   
+				   if (child instanceof PasswordField) {
+					  ((PasswordField)child).setText(this.dict.get(Id).get().toString());
+					
+				   }
+				   
 				   if (child instanceof CheckBox) {
 					   String bool = this.dict.get(Id).get().toString();
 					   if (bools.contains(bool))
 					   {
 					     ((CheckBox)child).setSelected(Boolean.parseBoolean(bool));
+					   }
+				   }
+				   
+				   
+				   if (child instanceof ComboBox) {
+					   if (this.dict.get(Id).get() != null)
+					   {	   
+					      String[] options = this.dict.get(Id).get().toString().split(",");
+					      for (int i =0; i<options.length;i++)
+					      {
+					    	  ((ComboBox<String>)child).getItems().add(options[i]);
+					      }
 					   }
 				   }
 				   
@@ -191,6 +210,11 @@ public class FXMLForm  {
 					
 				   }
 				   
+				   if (child instanceof PasswordField) {
+					   this.dict.put(Id, new StringValue(((PasswordField)child).getText()));
+					
+				   }
+				   
 				   if (child instanceof CheckBox) {
 					   this.dict.put(Id, new StringValue(new Boolean(((CheckBox)child).isSelected()).toString()));
 					
@@ -216,6 +240,12 @@ public class FXMLForm  {
 				   if (child instanceof javafx.scene.control.DatePicker) {
 					   LocalDate date = ((javafx.scene.control.DatePicker)child).getValue();
 					   this.dict.put(Id, new StringValue(date.toString()));
+					
+				   }
+				   
+				   if (child instanceof ComboBox) {
+					   String selected = ((javafx.scene.control.ComboBox)child).getSelectionModel().getSelectedItem().toString();
+					   this.dict.put(Id, new StringValue(selected));
 					
 				   }
 				   

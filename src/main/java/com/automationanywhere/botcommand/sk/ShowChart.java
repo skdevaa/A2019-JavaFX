@@ -14,14 +14,11 @@ package com.automationanywhere.botcommand.sk;
 import static com.automationanywhere.commandsdk.model.AttributeType.SELECT;
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
-import java.awt.Dimension;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
-import javax.swing.JFrame;
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.model.Schema;
 import com.automationanywhere.botcommand.data.model.record.Record;
@@ -36,8 +33,7 @@ import com.automationanywhere.commandsdk.model.DataType;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Pos;
+
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.chart.Axis;
@@ -50,16 +46,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
+
 
 
 

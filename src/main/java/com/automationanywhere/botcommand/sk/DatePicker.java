@@ -12,17 +12,21 @@
 package com.automationanywhere.botcommand.sk;
 
 
-import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
-import static com.automationanywhere.commandsdk.model.DataType.BOOLEAN;
 
-import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
-import javax.swing.JFrame;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.impl.DateTimeValue;
+import com.automationanywhere.botcommand.data.impl.DictionaryValue;
+import com.automationanywhere.botcommand.data.impl.NumberValue;
 import com.automationanywhere.botcommand.data.impl.StringValue;
 import com.automationanywhere.commandsdk.annotations.BotCommand;
 import com.automationanywhere.commandsdk.annotations.CommandPkg;
@@ -34,17 +38,16 @@ import com.automationanywhere.commandsdk.model.AttributeType;
 import com.automationanywhere.commandsdk.model.DataType;
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Window;
+
 
 
 
@@ -57,20 +60,21 @@ import javafx.stage.Window;
 
 @BotCommand
 @CommandPkg(label="Date Picker", name="DatePicker", description="Choose a Date",  icon="jfx.svg",
-node_label="DatePicker", return_type=DataType.DATETIME, return_label="Date", return_required=true)
+node_label="DatePicker", return_type=DataType.DICTIONARY,  return_sub_type= DataType.STRING , return_label="Date", return_required=true)
 public class DatePicker  {
 	
 	private static Semaphore sem;
 	private FXWindow window;
 	private String dirname="";
-	private DateTimeValue datevalue;
+	private Map<String, Value> dates;
+    private static Logger logger = LogManager.getLogger(DatePicker.class);
 	
 	@Execute
-	public DateTimeValue action(@Idx(index = "1", type = AttributeType.CHECKBOX) @Pkg(label = "Start-End Date", default_value_type = BOOLEAN) @NotEmpty Boolean startend
-					   ) throws Exception
+	public DictionaryValue action(@Idx(index = "1", type = AttributeType.CHECKBOX) @Pkg(label = "Start-End Date", default_value_type = DataType.BOOLEAN) @NotEmpty Boolean startend,
+			                    @Idx(index = "2", type = AttributeType.CHECKBOX) @Pkg(label = "Show Week No.", default_value_type = DataType.BOOLEAN) @NotEmpty Boolean showweek) throws Exception
 	{
 		
-		this.datevalue = new DateTimeValue();
+		this.dates= new HashMap<String, Value>();
 
 		  if (this.sem == null) {
 		      this.sem = new Semaphore(1);
@@ -78,7 +82,7 @@ public class DatePicker  {
 		  
 		  
 	    this.sem.acquire();
-	    window = new FXWindow("Directory Chooser",500,200);
+	    window = new FXWindow("Date Picker",500,200);
 	    window.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
 	             @Override
 	             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -90,7 +94,7 @@ public class DatePicker  {
 		            @Override
 		            public void run() {
 		        	  try {
-						initFX(startend);
+						initFX(startend,showweek);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -100,13 +104,15 @@ public class DatePicker  {
 
       this.sem.acquire();
       this.sem.release();
+      
+
 		   
-	  return this.datevalue;
+  	 return new DictionaryValue(this.dates);
     
 	}
 
 
-  private  void initFX(Boolean startend) throws Exception {
+  private  void initFX(Boolean startend,Boolean showweek) throws Exception {
 	  
 	  
 	  GridPane grid = new GridPane();    	
@@ -117,11 +123,16 @@ public class DatePicker  {
 
 	  javafx.scene.control.DatePicker datepicker1 = new javafx.scene.control.DatePicker();
 	  javafx.scene.control.DatePicker datepicker2 = new javafx.scene.control.DatePicker();
+	  
+	  datepicker1.setShowWeekNumbers(showweek);
+	  datepicker2.setShowWeekNumbers(showweek);
 
  	  Label label1 = new Label();
  	  label1.setText("Start");
+ 	  label1.setStyle("-fx-pref-width:80px");
  	  Label label2 = new Label();
  	  label2.setText("End");
+ 	  label2.setStyle("-fx-pref-width:80px");
  	  Button ok= new Button("OK");
  	  ok.setPrefWidth(100);
  	  Button cancel= new Button("Cancel");
@@ -161,37 +172,47 @@ public class DatePicker  {
 
  	  }
  	  
+ 	  
+  	 datepicker1.setOnAction((e)->{
+			LocalDate date = datepicker1.getValue();
+		    this.setDate("start", date);
+  	 });  
+
+
+ 	 datepicker2.setOnAction((e)->{
+			LocalDate date = datepicker2.getValue();
+			this.setDate("end", date);
+ 	 });  
+
+
+ 	 ok.setOnAction((e)->{
+ 		 window.getFrame().setVisible(false);
+ 		 quit();
+
+ 	 });
+ 	 
+ 	 cancel.setOnAction((e)->{
+ 		 window.getFrame().setVisible(false);
+ 		 quit();
+
+ 	 });
+ 	  
     	 
       Scene  scene  =  new  Scene(grid, Color.WHITE);
  	  URL url = this.getClass().getResource("/css/styles.css");
 	  scene.getStylesheets().add(url.toExternalForm());
  	  window.getPanel().setScene(scene);
      
-      
-	  datepicker1.setOnAction((e)->{
 
-		 });
-
-	  datepicker2.setOnAction((e)->{
-
-		 });
-      
- 	 ok.setOnAction((e)->{
-		 window.getFrame().setVisible(false);
-	     quit();
-
-	 });
- 	 cancel.setOnAction((e)->{
-		 window.getFrame().setVisible(false);
-	     quit();
-
-	 });
-      
-
-
+     
 
 
    }
+ 
+    private void setDate(String key, LocalDate date) {
+    	this.dates.put(key, new StringValue(date.toString()));
+    }
+    
   
 
 	private  void quit() {

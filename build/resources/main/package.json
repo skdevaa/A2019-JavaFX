@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20191223-103323",
-    "codeVersion": "2.0.0-20191223-103323",
+    "packageVersion": "2.0.0-20191223-144455",
+    "codeVersion": "2.0.0-20191223-144455",
     "commands": [
         {
             "name": "Alert",
@@ -72,14 +72,24 @@
             "nodeLabel": "DatePicker",
             "mainClass": "com.automationanywhere.botcommand.sk.DatePickerCommand",
             "icon": "jfx.svg",
-            "returnType": "DATETIME",
-            "returnSubtype": "UNDEFINED",
+            "returnType": "DICTIONARY",
+            "returnSubtype": "STRING",
             "returnLabel": "Date",
             "returnRequired": true,
             "attributes": [
                 {
                     "name": "startend",
                     "label": "Start-End Date",
+                    "type": "CHECKBOX",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "showweek",
+                    "label": "Show Week No.",
                     "type": "CHECKBOX",
                     "rules": [
                         {

@@ -13,10 +13,8 @@ package com.automationanywhere.botcommand.sk;
 
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
-
 import java.net.URL;
 import java.util.concurrent.Semaphore;
-
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.impl.StringValue;
 import com.automationanywhere.commandsdk.annotations.BotCommand;

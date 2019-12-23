@@ -40,11 +40,23 @@ public final class DatePickerCommand implements BotCommand {
     if(parameters.get("startend") != null && ((Boolean)parameters.get("startend").get()) == true) {
     }
 
+    if(parameters.get("showweek") == null || parameters.get("showweek").get() == null) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.validation.notEmpty","showweek"));
+    }
+    if(parameters.get("showweek") != null && parameters.get("showweek").get() != null && !(parameters.get("showweek").get() instanceof Boolean)) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","showweek", "Boolean", parameters.get("showweek").get().getClass().getSimpleName()));
+    }
+    if(parameters.get("showweek") != null && ((Boolean)parameters.get("showweek").get()) == true) {
+    }
+
     if(parameters.get("startend") != null && parameters.get("startend").get() != null && !(parameters.get("startend").get() instanceof Boolean)) {
       throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","startend", "Boolean", parameters.get("startend").get().getClass().getSimpleName()));
     }
+    if(parameters.get("showweek") != null && parameters.get("showweek").get() != null && !(parameters.get("showweek").get() instanceof Boolean)) {
+      throw new BotCommandException(MESSAGES_GENERIC.getString("generic.UnexpectedTypeReceived","showweek", "Boolean", parameters.get("showweek").get().getClass().getSimpleName()));
+    }
     try {
-      Optional<Value> result =  Optional.ofNullable(command.action(parameters.get("startend") != null ? (Boolean)parameters.get("startend").get() : (Boolean)null ));
+      Optional<Value> result =  Optional.ofNullable(command.action(parameters.get("startend") != null ? (Boolean)parameters.get("startend").get() : (Boolean)null ,parameters.get("showweek") != null ? (Boolean)parameters.get("showweek").get() : (Boolean)null ));
       logger.traceExit(result);
       return result;
     }

@@ -13,14 +13,10 @@ package com.automationanywhere.botcommand.sk;
 
 import static com.automationanywhere.commandsdk.model.AttributeType.SELECT;
 import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
-import static com.automationanywhere.commandsdk.model.AttributeType.NUMBER;
 import static com.automationanywhere.commandsdk.model.DataType.STRING;
-import static com.automationanywhere.commandsdk.model.DataType.NUMBER;
 
-import java.awt.Insets;
 import java.net.URL;
 import java.util.concurrent.Semaphore;
-import javax.swing.JFrame;
 
 import com.automationanywhere.commandsdk.annotations.BotCommand;
 import com.automationanywhere.commandsdk.annotations.CommandPkg;
@@ -32,19 +28,13 @@ import com.automationanywhere.commandsdk.model.AttributeType;
 import com.automationanywhere.commandsdk.model.DataType;
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Pos;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;

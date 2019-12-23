@@ -18,7 +18,6 @@ import static com.automationanywhere.commandsdk.model.DataType.STRING;
 import java.io.File;
 import java.net.URL;
 import java.util.concurrent.Semaphore;
-import javax.swing.JFrame;
 
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.impl.StringValue;
@@ -30,7 +29,6 @@ import com.automationanywhere.commandsdk.annotations.Pkg;
 import com.automationanywhere.commandsdk.annotations.rules.NotEmpty;
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 

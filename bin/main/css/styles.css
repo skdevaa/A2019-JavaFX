@@ -23,15 +23,17 @@
 
 }
 
+.combo-box-base {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-font-size:11pt;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+}
 
 .combo-box 
 {
+
     -fx-font-size:11pt;
-    -fx-background: white;
-    -fx-border-color: #FFBC03;
-    -fx-border-width:2px;
-    -fx-border-radius:3px;
-    -fx-background-color: transparent; 
 }
 
 .text-field {

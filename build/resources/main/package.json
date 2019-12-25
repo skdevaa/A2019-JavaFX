@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20191223-144455",
-    "codeVersion": "2.0.0-20191223-144455",
+    "packageVersion": "2.0.0-20191225-083242",
+    "codeVersion": "2.0.0-20191225-083242",
     "commands": [
         {
             "name": "Alert",
@@ -73,7 +73,7 @@
             "mainClass": "com.automationanywhere.botcommand.sk.DatePickerCommand",
             "icon": "jfx.svg",
             "returnType": "DICTIONARY",
-            "returnSubtype": "STRING",
+            "returnSubtype": "DATETIME",
             "returnLabel": "Date",
             "returnRequired": true,
             "attributes": [

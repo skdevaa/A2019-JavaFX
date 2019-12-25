@@ -16,6 +16,10 @@ import static com.automationanywhere.commandsdk.model.DataType.STRING;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -60,7 +64,7 @@ import javafx.scene.paint.Color;
 
 @BotCommand
 @CommandPkg(label="Date Picker", name="DatePicker", description="Choose a Date",  icon="jfx.svg",
-node_label="DatePicker", return_type=DataType.DICTIONARY,  return_sub_type= DataType.STRING , return_label="Date", return_required=true)
+node_label="DatePicker", return_type=DataType.DICTIONARY,  return_sub_type= DataType.DATETIME, return_label="Date", return_required=true)
 public class DatePicker  {
 	
 	private static Semaphore sem;
@@ -178,6 +182,7 @@ public class DatePicker  {
 		    this.setDate("start", date);
   	 });  
 
+  	 
 
  	 datepicker2.setOnAction((e)->{
 			LocalDate date = datepicker2.getValue();
@@ -210,7 +215,13 @@ public class DatePicker  {
    }
  
     private void setDate(String key, LocalDate date) {
-    	this.dates.put(key, new StringValue(date.toString()));
+    	
+		ZoneId systemDefault = ZoneId.systemDefault();
+		LocalDateTime datetime = date.atTime(0, 0 ,0);
+		ZonedDateTime datetimevalue = datetime.atZone(systemDefault);
+		DateTimeValue datevalue = new DateTimeValue();
+		datevalue.set(datetimevalue);
+    	this.dates.put(key, datevalue);
     }
     
   

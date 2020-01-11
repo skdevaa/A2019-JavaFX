@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20191225-083242",
-    "codeVersion": "2.0.0-20191225-083242",
+    "packageVersion": "2.0.0-20200111-171154",
+    "codeVersion": "2.0.0-20200111-171154",
     "commands": [
         {
             "name": "Alert",
@@ -213,6 +213,26 @@
                     "name": "dict",
                     "label": "Dictionary",
                     "type": "DICTIONARY",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ImageViewer",
+            "label": "Image Viewer",
+            "description": "Shows Image",
+            "nodeLabel": "ImageViewer",
+            "mainClass": "com.automationanywhere.botcommand.sk.ImageViewerCommand",
+            "icon": "jfx.svg",
+            "attributes": [
+                {
+                    "name": "imagefile",
+                    "label": "Image",
+                    "type": "FILE",
                     "rules": [
                         {
                             "name": "NOT_EMPTY"

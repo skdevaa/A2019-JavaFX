@@ -23,6 +23,10 @@
 
 }
 
+.scroll-pane {
+    -fx-background-color: white;
+}
+
 .combo-box-base {
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
     -fx-font-size:11pt;

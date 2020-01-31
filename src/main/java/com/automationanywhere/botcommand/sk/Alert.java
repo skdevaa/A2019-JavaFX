@@ -6,9 +6,7 @@
  * You shall use it only in accordance with the terms of the license agreement
  * you entered into with Automation Anywhere.
  */
-/**
- * 
- */
+
 package com.automationanywhere.botcommand.sk;
 
 import static com.automationanywhere.commandsdk.model.AttributeType.SELECT;

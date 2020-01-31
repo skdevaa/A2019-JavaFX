@@ -147,7 +147,9 @@ public class FileChooser  {
 
   	 browse.setOnAction((e)->{
   		 Window win =  window.getPanel().getScene().getWindow();
+  		window.getFrame().setAlwaysOnTop(false);
 		File file = fileChooser.showOpenDialog(win);
+		window.getFrame().setAlwaysOnTop(true);
 		setFileName(file.getAbsolutePath());
 		textElement.setText(file.getAbsolutePath());
 

@@ -11,11 +11,7 @@
  */
 package com.automationanywhere.botcommand.sk;
 
-import static com.automationanywhere.commandsdk.model.AttributeType.TEXT;
-import static com.automationanywhere.commandsdk.model.DataType.STRING;
-import static com.automationanywhere.commandsdk.model.DataType.FILE;
 
-import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.concurrent.Semaphore;
@@ -34,28 +30,17 @@ import com.automationanywhere.commandsdk.model.DataType;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 
 
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Window;
 
 
 

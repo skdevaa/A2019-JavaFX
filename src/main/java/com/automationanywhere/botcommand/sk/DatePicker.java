@@ -12,14 +12,11 @@
 package com.automationanywhere.botcommand.sk;
 
 
-import static com.automationanywhere.commandsdk.model.DataType.STRING;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -30,8 +27,6 @@ import org.apache.logging.log4j.Logger;
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.impl.DateTimeValue;
 import com.automationanywhere.botcommand.data.impl.DictionaryValue;
-import com.automationanywhere.botcommand.data.impl.NumberValue;
-import com.automationanywhere.botcommand.data.impl.StringValue;
 import com.automationanywhere.commandsdk.annotations.BotCommand;
 import com.automationanywhere.commandsdk.annotations.CommandPkg;
 import com.automationanywhere.commandsdk.annotations.Execute;
@@ -42,8 +37,6 @@ import com.automationanywhere.commandsdk.model.AttributeType;
 import com.automationanywhere.commandsdk.model.DataType;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.automationanywhere.botcommand.data.Value;
 import com.automationanywhere.botcommand.data.impl.DictionaryValue;
 import com.automationanywhere.botcommand.data.impl.StringValue;
@@ -49,6 +52,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
@@ -73,6 +77,7 @@ public class FXMLForm  {
 	private Parent root ;
 	private FXWindow window;
 
+	private static Logger logger = LogManager.getLogger(FXMLForm.class);
 	
 	@Execute
 	public DictionaryValue action(@Idx(index = "1", type = AttributeType.FILE) @Pkg(label = "FXML File", default_value_type = DataType.FILE) @NotEmpty String fxml,
@@ -193,8 +198,11 @@ public class FXMLForm  {
 	   {
 		   if (child.getId() != null)
 		   {
+			   logger.info("Child Class'{}' .",child.getClass().getName());
 			   
-			   String Id = child.getId().toString();
+			   String Id =   child.getId().toString()  ;
+			   
+			   logger.info("Child id '{}' .", Id);
 			   if (this.dict.containsKey(Id))
 			   {		
 				   if (child instanceof TextField) {

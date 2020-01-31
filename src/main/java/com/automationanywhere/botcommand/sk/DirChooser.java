@@ -147,8 +147,11 @@ public class DirChooser  {
      
 
   	 browse.setOnAction((e)->{
+
   		 Window win =  window.getPanel().getScene().getWindow();
+  		window.getFrame().setAlwaysOnTop(false);
 		File dir = dirChooser.showDialog(win);
+  		window.getFrame().setAlwaysOnTop(true);
 		setFileName(dir.getAbsolutePath());
 		textElement.setText(dir.getAbsolutePath());
 

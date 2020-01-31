@@ -13,19 +13,12 @@
     -fx-background-color: #FFEFC4;
 }
 
-.label {
-    -fx-font-size:11pt;
-
-}
 
 .date-picker {
     -fx-font-size:11pt;
 
 }
 
-.scroll-pane {
-    -fx-background-color: white;
-}
 
 .combo-box-base {
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
@@ -69,8 +62,7 @@
 
 
 .chart-bar {
-    -fx-background-color: linear (0%,0%) to (0%,100%) 
-        stops (0%, derive(-fx-bar-fill,-30%)) 
+    -fx-background-color: linear (0%,0%) to (0%,100%)   stops (0%, derive(-fx-bar-fill,-30%)) 
         (100%, derive(-fx-bar-fill,-40%)),
         linear (0%,0%) to (0%,100%) 
         stops (0%, derive(-fx-bar-fill,80%)) 

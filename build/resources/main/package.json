@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20200131-184742",
-    "codeVersion": "2.0.0-20200131-184742",
+    "packageVersion": "2.0.0-20200211-073934",
+    "codeVersion": "2.0.0-20200211-073934",
     "commands": [
         {
             "name": "Alert",
@@ -647,6 +647,40 @@
                 {
                     "name": "button2",
                     "label": "Button2",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ValuePrompt",
+            "label": "Value Prompt",
+            "description": "Prompt for Value",
+            "nodeLabel": "ValuePrompt",
+            "mainClass": "com.automationanywhere.botcommand.sk.ValuePromptCommand",
+            "icon": "jfx.svg",
+            "returnType": "STRING",
+            "returnSubtype": "UNDEFINED",
+            "returnLabel": "Value",
+            "returnRequired": true,
+            "attributes": [
+                {
+                    "name": "label",
+                    "label": "Label",
+                    "type": "TEXT",
+                    "rules": [
+                        {
+                            "name": "NOT_EMPTY"
+                        }
+                    ]
+                },
+                {
+                    "name": "buttonlabel",
+                    "label": "Button Label",
                     "type": "TEXT",
                     "rules": [
                         {

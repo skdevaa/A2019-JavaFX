@@ -4,8 +4,8 @@
     "description": "Provides actions for JavaFX based UIs.",
     "group": "com.automationanywhere",
     "artifactName": "JavaFX",
-    "packageVersion": "2.0.0-20200211-073934",
-    "codeVersion": "2.0.0-20200211-073934",
+    "packageVersion": "2.0.0-20200222-173703",
+    "codeVersion": "2.0.0-20200222-173703",
     "commands": [
         {
             "name": "Alert",

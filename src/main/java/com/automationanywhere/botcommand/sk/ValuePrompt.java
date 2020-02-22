@@ -144,10 +144,9 @@ public class ValuePrompt  {
  	  grid.add(innergridstart, 0,0);
  	  grid.add(innergridbut, 0,1);
 
- 	 
-  	 field.setOnAction((e)->{
- 			this.value = field.getText();
-  	 });
+ 	 field.textProperty().addListener((obs, oldText, newText) -> 
+ 			this.value = newText
+  	 );
 
  	 ok.setOnAction((e)->{
  		 window.getFrame().setVisible(false);

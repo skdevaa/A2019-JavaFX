@@ -120,7 +120,6 @@ public class RadioButtons  {
 	 this.grid.setHgap(10);
      this.grid.setVgap(12);
 	 grid.setAlignment(Pos.CENTER);
-	
      
 	 List<Value> options = this.options;
 	 int row = 0;	 
